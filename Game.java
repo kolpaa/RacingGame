@@ -16,6 +16,7 @@ public class Game {
     public static int playerX;
     public static double x;
     public static double dx;
+    public static float maxSpeed = 200;
 
     static {
       x = 0;

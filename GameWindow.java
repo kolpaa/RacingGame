@@ -26,7 +26,9 @@ public class GameWindow {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (upPressed) {
-                    Game.speed += 1;
+                    if(Game.speed < Game.maxSpeed){
+                        Game.speed += 1;
+                    }
                 }
                 if (downPressed) {
                     Game.speed -= 1;
