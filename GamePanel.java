@@ -44,6 +44,10 @@ public class GamePanel extends JPanel{
             Game.dx += p.curve;
           }
 
+          if (l.Y >= maxY && l.Y < Game.height){
+            continue;
+          }
+          maxY = (int)l.Y;
 
 
           Color grass = (n/3)%2 == 0 ? new Color(16, 200, 16) : new Color(0, 154, 0);
