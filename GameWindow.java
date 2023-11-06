@@ -34,10 +34,13 @@ public class GameWindow {
                     Game.speed -= 1;
                 }
                 if (leftPressed){
+                    if(Game.playerX > Game.minCoordinateX)
                     Game.playerX -= 20;
                 }
                 if (rightPressed){
-                    Game.playerX += 20;
+                    if(Game.playerX < Game.maxCoordinateX){
+                        Game.playerX += 20;
+                    }
                 }
 
                 Game.gamePanel.repaint(); 

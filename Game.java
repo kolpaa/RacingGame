@@ -17,6 +17,8 @@ public class Game {
     public static double x;
     public static double dx;
     public static float maxSpeed = 200;
+    public static float maxCoordinateX = 1740;
+    public static float minCoordinateX = -1740;
 
     static {
       x = 0;
