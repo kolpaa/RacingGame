@@ -12,6 +12,7 @@ public class GameWindow {
     private boolean upPressed = false;
     private boolean leftPressed = false;
     private boolean rightPressed = false;
+    private boolean downPressed = false;
     
     public GameWindow(GamePanel gamePanel){
         jframe = new JFrame();  
@@ -26,6 +27,9 @@ public class GameWindow {
             public void actionPerformed(ActionEvent e) {
                 if (upPressed) {
                     Game.speed += 1;
+                }
+                if (downPressed) {
+                    Game.speed -= 1;
                 }
                 if (leftPressed){
                     Game.playerX -= 20;
@@ -54,6 +58,9 @@ public class GameWindow {
                 if (keyCode == KeyEvent.VK_W){
                     upPressed = true;
                 }
+                if(e.getKeyCode() == KeyEvent.VK_S){ 
+                    downPressed = true;    
+                }
                 else if (keyCode == KeyEvent.VK_A){
                     leftPressed = true;
                 }
@@ -67,6 +74,9 @@ public class GameWindow {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_W){
                     upPressed = false;
+                }
+                else if(e.getKeyCode() == KeyEvent.VK_S){   
+                    downPressed = false;
                 }
                 else if (keyCode == KeyEvent.VK_A){
                     leftPressed = false;
