@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Game {
     
     private GameWindow gameWindow;
-    private GamePanel gamePanel;
+    public static GamePanel gamePanel;
     public static double camD;
     public static int segL;
     public static int roadW;
@@ -12,6 +12,7 @@ public class Game {
     public static int height;
     public static int position;
     public static int startPosition;
+    public static float speed;
 
     static {
       width = 1024;
@@ -22,6 +23,7 @@ public class Game {
       lines = new ArrayList<Line>();
       position = segL;
       startPosition = 0;
+      speed = 0;
     }
     
     public Game() {
