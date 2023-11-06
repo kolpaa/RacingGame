@@ -10,6 +10,8 @@ public class GameWindow {
     private static final int TARGET_FPS = 120;
     private static final long TARGET_FRAME_TIME = 1000 / TARGET_FPS;
     private boolean upPressed = false;
+    private boolean leftPressed = false;
+    private boolean rightPressed = false;
     
     public GameWindow(GamePanel gamePanel){
         jframe = new JFrame();  
@@ -24,6 +26,12 @@ public class GameWindow {
             public void actionPerformed(ActionEvent e) {
                 if (upPressed) {
                     Game.speed += 1;
+                }
+                if (leftPressed){
+                    Game.playerX -= 20;
+                }
+                if (rightPressed){
+                    Game.playerX += 20;
                 }
 
                 Game.gamePanel.repaint(); 
@@ -46,6 +54,12 @@ public class GameWindow {
                 if (keyCode == KeyEvent.VK_W){
                     upPressed = true;
                 }
+                else if (keyCode == KeyEvent.VK_A){
+                    leftPressed = true;
+                }
+                else if (keyCode == KeyEvent.VK_D){
+                    rightPressed = true;
+                }
             }
 
             @Override
@@ -54,7 +68,15 @@ public class GameWindow {
                 if (keyCode == KeyEvent.VK_W){
                     upPressed = false;
                 }
+                else if (keyCode == KeyEvent.VK_A){
+                    leftPressed = false;
+                }
+                else if (keyCode == KeyEvent.VK_D){
+                    rightPressed = false;
+                }
             }
+
+            
         });
     }
 

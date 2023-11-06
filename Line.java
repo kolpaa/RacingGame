@@ -2,10 +2,10 @@
 public class Line {
     public float x, y, z;
     public double X, Y, W;
-    public double scale;
+    public double scale, curve;
 
     public Line(){
-        x = y = z = 0;
+        curve = x = y = z = 0;
     }
 
     public void project(int camX, int camY, int camZ){

@@ -13,6 +13,7 @@ public class GamePanel extends JPanel{
 
       Game.startPosition = (int)(Game.position / Game.segL);
 
+
       Game.speed -= 0.3;
 
 
@@ -23,18 +24,26 @@ public class GamePanel extends JPanel{
       else{
         Game.speed = 0;
       }
+      Game.x = Game.dx = 0;
       
+      int camH = 1500 + (int)Game.lines.get(Game.startPosition).y;
+
+      int maxY = Game.height;
 
 
       for(int n = Game.startPosition; n < Game.startPosition + 300; n++){
           Line l = Game.lines.get(n%1600);
-          l.project(0, 1500, Game.position);
-
+          l.project(Game.playerX - (int)(Game.x), camH, Game.position);
+          Game.x += Game.dx;
+          Game.dx += l.curve;
 
           Line p = Game.lines.get((n-1)%1600);
-           if (n == 1){
-            p.project(0, 1500, 0);
+          if (n == 1){
+            p.project(Game.playerX - (int)(Game.x), camH, 0);
+            Game.x += Game.dx;
+            Game.dx += p.curve;
           }
+
 
 
           Color grass = (n/3)%2 == 0 ? new Color(16, 200, 16) : new Color(0, 154, 0);

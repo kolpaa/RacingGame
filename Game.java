@@ -13,8 +13,14 @@ public class Game {
     public static int position;
     public static int startPosition;
     public static float speed;
+    public static int playerX;
+    public static double x;
+    public static double dx;
 
     static {
+      x = 0;
+      dx = 0;
+      playerX = 0;
       width = 1024;
       height = 768;
       camD = 0.84;
@@ -31,6 +37,12 @@ public class Game {
       for(int i = 0; i < 1600; i++){
         Line line = new Line();
         line.z = i * segL;
+        if (i > 300 && i < 700){
+          line.curve = 0.5;
+        }
+        if (i > 750){
+          line.y = (float) (Math.sin(i / 30.0) * 1500);
+        }
         lines.add(line);
       }
 
