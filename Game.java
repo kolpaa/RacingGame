@@ -1,4 +1,9 @@
 import java.util.ArrayList;
+import java.awt.Graphics;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Game {
     
@@ -19,6 +24,7 @@ public class Game {
     public static float maxSpeed = 200;
     public static float maxCoordinateX = 1740;
     public static float minCoordinateX = -1740;
+    
 
     static {
       x = 0;
@@ -51,6 +57,5 @@ public class Game {
 
       gamePanel = new GamePanel();
       gameWindow = new GameWindow(gamePanel);
-      
     }
 }

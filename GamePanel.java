@@ -1,22 +1,24 @@
 import java.awt.Graphics;
+import java.io.IOException;
 import java.awt.Color;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+
 
 public class GamePanel extends JPanel{
 
     public GamePanel(){
-
+      private ImageIcon car;
     }
     
     public void paintComponent(Graphics g) {
       super.paintComponent(g);
-
       Game.startPosition = (int)(Game.position / Game.segL);
 
 
       Game.speed -= 0.3;
-
-
 
       if (Game.speed > 0){
         Game.position += Game.speed;
@@ -60,7 +62,14 @@ public class GamePanel extends JPanel{
           new MyQuad(n, new int[] {(int)p.X, (int)p.Y, (int)p.W, (int)l.X, (int)l.Y, (int)l.W} , road, g);
 
       }
-
-
-    }
+      // фото бибики
+      // try {
+      //   Game.car=new ImageIcon(ImageIO.read(getClass().getResource("gamecar1.png"))); 
+      // } catch (IOException e) {
+      //   e.printStackTrace();
+      // }  
+    
+      //     car=new ImageIcon("gamecar1.png");
+      //     car.paintIcon(this, g, Game.x, Game.dx); 
+     }
 }
