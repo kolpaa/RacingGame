@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel{
 
     public GamePanel(){
-      private ImageIcon car;
+      // private ImageIcon car;
     }
     
     public void paintComponent(Graphics g) {

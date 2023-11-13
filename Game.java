@@ -25,6 +25,7 @@ public class Game {
     public static float maxCoordinateX = 1740;
     public static float minCoordinateX = -1740;
     
+    
 
     static {
       x = 0;
