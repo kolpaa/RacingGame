@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-
 public class GameWindow {
     private JFrame jframe;
     private static final int TARGET_FPS = 120;
@@ -22,9 +21,9 @@ public class GameWindow {
     private boolean leftPressed = false;
     private boolean rightPressed = false;
     private boolean downPressed = false;
-    
-    public GameWindow(GamePanel gamePanel){
-        jframe = new JFrame();  
+
+    public GameWindow(GamePanel gamePanel) {
+        jframe = new JFrame();
         jframe.setSize(Game.width, Game.height);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.add(gamePanel);
@@ -35,72 +34,64 @@ public class GameWindow {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (upPressed) {
-                    if(Game.speed < Game.maxSpeed){
+                    if (Game.speed < Game.maxSpeed) {
                         Game.speed += 1;
                     }
                 }
                 if (downPressed) {
                     Game.speed -= 1;
                 }
-                if (leftPressed && (upPressed | downPressed)){
-                    if(Game.playerX > Game.minCoordinateX)
-                    Game.playerX -= 20;
+                if (leftPressed && (upPressed | downPressed)) { //а
+                    if (Game.playerX > Game.minCoordinateX)
+                        Game.playerX -= 20;
                 }
-                if (rightPressed && (upPressed | downPressed)){
-                    if(Game.playerX < Game.maxCoordinateX){
+                if (rightPressed && (upPressed | downPressed)) {
+                    if (Game.playerX < Game.maxCoordinateX) {
                         Game.playerX += 20;
                     }
                 }
-                Game.gamePanel.repaint(); 
+                Game.gamePanel.repaint();
             }
         });
         timer.start();
 
-
-
         jframe.addKeyListener(new KeyListener() {
 
             @Override
-            public void keyTyped(KeyEvent e){
+            public void keyTyped(KeyEvent e) {
 
             }
 
             @Override
-            public void  keyPressed(KeyEvent e){
+            public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                if (keyCode == KeyEvent.VK_W){
+                if (keyCode == KeyEvent.VK_W) {
                     upPressed = true;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_S){ 
-                    downPressed = true;    
-                }
-                else if (keyCode == KeyEvent.VK_A){
+                if (e.getKeyCode() == KeyEvent.VK_S) {
+                    downPressed = true;
+                } else if (keyCode == KeyEvent.VK_A) {
                     leftPressed = true;
-                }
-                else if (keyCode == KeyEvent.VK_D){
+                } else if (keyCode == KeyEvent.VK_D) {
                     rightPressed = true;
                 }
             }
 
             @Override
-            public void keyReleased(KeyEvent e){
+            public void keyReleased(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                if (keyCode == KeyEvent.VK_W){
+                if (keyCode == KeyEvent.VK_W) {
                     upPressed = false;
-                }
-                else if(e.getKeyCode() == KeyEvent.VK_S){   
+                } else if (e.getKeyCode() == KeyEvent.VK_S) {
                     downPressed = false;
-                }
-                else if (keyCode == KeyEvent.VK_A){
+                } else if (keyCode == KeyEvent.VK_A) {
                     leftPressed = false;
-                }
-                else if (keyCode == KeyEvent.VK_D){
+                } else if (keyCode == KeyEvent.VK_D) {
                     rightPressed = false;
                 }
             }
 
-            
         });
     }
-    
+
 }

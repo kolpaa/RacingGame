@@ -8,20 +8,20 @@ public class Line {
     public Image sprite;
     public int spriteX;
 
-    public Line(){
+    public Line() {
         curve = x = y = z = 0;
     }
 
-    public void project(int camX, int camY, int camZ){
+    public void project(int camX, int camY, int camZ) {
         scale = Game.camD / (z - camZ);
-        X = (1 + scale * (x - camX)) * Game.width/2;
-        Y = (1 - scale * (y - camY)) * Game.height/2;
-        W = scale * Game.roadW * Game.width/2;
+        X = (1 + scale * (x - camX)) * Game.width / 2;
+        Y = (1 - scale * (y - camY)) * Game.height / 2;
+        W = scale * Game.roadW * Game.width / 2;
     }
 
-    public void drawSprite(Graphics g){
+    public void drawSprite(Graphics g) {
         Image s = sprite;
-        if (s == null){
+        if (s == null) {
             return;
         }
         int w = s.getWidth(null);
@@ -36,14 +36,14 @@ public class Line {
         destY += destH * (-1);
 
         double clipH = destY + destH - clip;
-        if (clipH < 0){
+        if (clipH < 0) {
             clipH = 0;
         }
-        if (clipH > destH){
+        if (clipH > destH) {
             return;
         }
-       // System.out.println(Y);
-        g.drawImage(s, (int)destX, (int)destY, (int)(destW/w), (int)(destH/h), null);
+        // System.out.println(Y);
+        g.drawImage(s, (int) destX, (int) destY, (int) (destW / w), (int) (destH / h), null);
     }
 
 }
