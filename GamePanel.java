@@ -14,6 +14,7 @@ public class GamePanel extends JPanel{
     Image background;
     Image car;
     Image shavarma;
+    Image EnemyCar;
 
 
     public static Image resizeImage(Image originalImage, int newWidth, int newHeight) {
@@ -43,7 +44,7 @@ public class GamePanel extends JPanel{
       else{
         Game.speed = 0;
       }
-      Game.x = Game.dx = 0;
+      Game.x = Game.y = 0;
       
       int camH = 1500 + (int)Game.lines.get(Game.startPosition).y;
 
@@ -53,14 +54,14 @@ public class GamePanel extends JPanel{
       for(int n = Game.startPosition; n < Game.startPosition + 300; n++){
           Line l = Game.lines.get(n%1600);
           l.project(Game.playerX - (int)(Game.x), camH, Game.position);
-          Game.x += Game.dx;
-          Game.dx += l.curve;
+          Game.x += Game.y;
+          Game.y += l.curve;
 
           Line p = Game.lines.get((n-1)%1600);
           if (n == 1){
             p.project(Game.playerX - (int)(Game.x), camH, 0);
-            Game.x += Game.dx;
-            Game.dx += p.curve;
+            Game.x += Game.y;
+            Game.y += p.curve;
           }
 
           if (l.Y >= maxY && l.Y < Game.height){
@@ -94,8 +95,8 @@ public class GamePanel extends JPanel{
 
            Image ress = resizeImage(test, (int)(1 + dist * 0.4) , (int)(1 + dist * 0.4) );
            g.drawImage(ress, (int)(p.X) - (int)(p.W) - 200 - p.spriteX, (int)p.Y - ress.getWidth(null), null);
-
-
        }
-     }
+
+  }
+
 }

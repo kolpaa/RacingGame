@@ -23,7 +23,7 @@ public class Game {
     public static float speed;
     public static int playerX;
     public static double x;
-    public static double dx;
+    public static double y;
     public static float maxSpeed = 200;
     public static float maxCoordinateX = 1740;
     public static float minCoordinateX = -1740;
@@ -33,7 +33,7 @@ public class Game {
 
     static {
       x = 0;
-      dx = 0;
+      y = 0;
       playerX = 0;
       width = 1024;
       height = 768;
