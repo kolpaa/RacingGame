@@ -15,6 +15,9 @@ public class GamePanel extends JPanel{
     Image car;
     Image shavarma;
     Image EnemyCar;
+    private Image snowflake;
+    private int[] snowflakeX;
+    private int[] snowflakeY;
 
 
     public static Image resizeImage(Image originalImage, int newWidth, int newHeight) {
@@ -28,11 +31,26 @@ public class GamePanel extends JPanel{
     public GamePanel(){
       background = Toolkit.getDefaultToolkit().createImage("district.jpg");
       car = Toolkit.getDefaultToolkit().createImage("car.png");
+      snowflake = Toolkit.getDefaultToolkit().createImage("snowflake.png");
     }
     
     public void paintComponent(Graphics g) {
       super.paintComponent(g);
       g.drawImage(background, 0,0, null);
+
+      snowflakeX = new int[100]; // Количество снежинок
+        snowflakeY = new int[100];
+
+        // Инициализация начальных координат снежинок
+        for (int i = 0; i < snowflakeX.length; i++) {
+            snowflakeX[i] = (int) (Math.random() * background.getWidth(null));
+            snowflakeY[i] = (int) (Math.random() * background.getHeight(null));
+        }
+
+        for (int i = 0; i < snowflakeX.length; i++) {
+          g.drawImage(snowflake, snowflakeX[i], snowflakeY[i], null);
+      }
+
       Game.startPosition = (int)(Game.position / Game.segL);
 
 

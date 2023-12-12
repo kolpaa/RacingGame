@@ -20,6 +20,7 @@ public class Game {
     public static int height;
     public static int position;
     public static int startPosition;
+    public static int enemyStartPosition;
     public static float speed;
     public static int playerX;
     public static double x;
@@ -43,6 +44,7 @@ public class Game {
       lines = new ArrayList<Line>();
       position = segL;
       startPosition = 0;
+      enemyStartPosition = 100;
       speed = 0;
       shawarma = Toolkit.getDefaultToolkit().createImage("shaurma.png");
     }
@@ -68,5 +70,6 @@ public class Game {
 
       gamePanel = new GamePanel();
       gameWindow = new GameWindow(gamePanel);
+      
     }
 }
