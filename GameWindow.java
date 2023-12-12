@@ -41,13 +41,17 @@ public class GameWindow {
                 if (downPressed) {
                     Game.speed -= 1;
                 }
-                if (leftPressed && (upPressed | downPressed)) { //а
-                    if (Game.playerX > Game.minCoordinateX)
-                        Game.playerX -= 20;
+                if (leftPressed && (upPressed | downPressed)) {
+                    if (Game.speed > 10){
+                        if (Game.playerX > Game.minCoordinateX)
+                            Game.playerX -= 20;
+                    }
                 }
-                if (rightPressed && (upPressed | downPressed)) {
-                    if (Game.playerX < Game.maxCoordinateX) {
+                if (rightPressed) {
+                    if (Game.speed > 10){
+                        if (Game.playerX < Game.maxCoordinateX) {
                         Game.playerX += 20;
+                        }
                     }
                 }
                 Game.gamePanel.repaint();
