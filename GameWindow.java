@@ -42,16 +42,15 @@ public class GameWindow {
                 if (downPressed) {
                     Game.speed -= 1;
                 }
-                if (leftPressed){
+                if (leftPressed && (upPressed | downPressed)){
                     if(Game.playerX > Game.minCoordinateX)
                     Game.playerX -= 20;
                 }
-                if (rightPressed){
+                if (rightPressed && (upPressed | downPressed)){
                     if(Game.playerX < Game.maxCoordinateX){
                         Game.playerX += 20;
                     }
                 }
-
                 Game.gamePanel.repaint(); 
             }
         });
