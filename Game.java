@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -24,6 +27,7 @@ public class Game {
     public static float maxSpeed = 200;
     public static float maxCoordinateX = 1740;
     public static float minCoordinateX = -1740;
+    public static Image shawarma;
     
     
 
@@ -40,10 +44,11 @@ public class Game {
       position = segL;
       startPosition = 0;
       speed = 0;
+      shawarma = Toolkit.getDefaultToolkit().createImage("shaurma.png");
     }
     
     public Game() {
-
+      Random random = new Random();
       for(int i = 0; i < 1600; i++){
         Line line = new Line();
         line.z = i * segL;
@@ -52,6 +57,11 @@ public class Game {
         }
         if (i > 750){
           line.y = (float) (Math.sin(i / 30.0) * 1500);
+        }
+        if (i%100 == 0){
+          int diff = random.nextInt(300);
+          line.spriteX = diff;
+          line.sprite = shawarma;
         }
         lines.add(line);
       }

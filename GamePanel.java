@@ -1,20 +1,37 @@
 import java.awt.Graphics;
-import java.io.IOException;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.util.Random;
 import java.awt.Color;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+
 
 
 public class GamePanel extends JPanel{
 
+    Image background;
+    Image car;
+    Image shavarma;
+
+
+    public static Image resizeImage(Image originalImage, int newWidth, int newHeight) {
+      BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+      Graphics2D g2 = resizedImage.createGraphics();
+      g2.drawImage(originalImage, 0, 0, newWidth, newHeight, null);
+      g2.dispose();
+      return resizedImage;
+  }
+
     public GamePanel(){
-      // private ImageIcon car;
+      background = Toolkit.getDefaultToolkit().createImage("district.jpg");
+      car = Toolkit.getDefaultToolkit().createImage("car.png");
     }
     
     public void paintComponent(Graphics g) {
       super.paintComponent(g);
+      g.drawImage(background, 0,0, null);
       Game.startPosition = (int)(Game.position / Game.segL);
 
 
@@ -52,9 +69,9 @@ public class GamePanel extends JPanel{
           maxY = (int)l.Y;
 
 
-          Color grass = (n/3)%2 == 0 ? new Color(16, 200, 16) : new Color(0, 154, 0);
+          Color grass = (n/3)%2 == 0 ? new Color(170, 166, 165) : new Color(195, 197, 209);
           Color rumble = (n/3)%2 == 0 ? new Color(255, 255, 255) : new Color(0, 0, 0);
-          Color road = (n/3)%2 == 0 ? new Color(107, 107, 107) : new Color(105, 105, 105);
+          Color road = (n/3)%2 == 0 ? new Color(114, 105, 90) : new Color(140, 129, 111);
 
 
           new MyQuad(n, new int[] {0, (int)p.Y, Game.width, 0, (int)l.Y, Game.width} , grass, g);
@@ -62,14 +79,23 @@ public class GamePanel extends JPanel{
           new MyQuad(n, new int[] {(int)p.X, (int)p.Y, (int)p.W, (int)l.X, (int)l.Y, (int)l.W} , road, g);
 
       }
-      // фото бибики
-      // try {
-      //   Game.car=new ImageIcon(ImageIO.read(getClass().getResource("gamecar1.png"))); 
-      // } catch (IOException e) {
-      //   e.printStackTrace();
-      // }  
-    
-      //     car=new ImageIcon("gamecar1.png");
-      //     car.paintIcon(this, g, Game.x, Game.dx); 
+      g.drawImage(car, 400, 500, null);
+       int dist = 0;
+       for(int n = Game.startPosition + 300; n > Game.startPosition; n--){
+           // Line l = Game.lines.get(n%1600).drawSprite(g);
+           dist++;
+           Line p = Game.lines.get(n%1600);
+           Image test = p.sprite;
+            if (test == null){
+              continue;
+            }
+
+            //Image res_s = test.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+
+           Image ress = resizeImage(test, (int)(1 + dist * 0.4) , (int)(1 + dist * 0.4) );
+           g.drawImage(ress, (int)(p.X) - (int)(p.W) - 200 - p.spriteX, (int)p.Y - ress.getWidth(null), null);
+
+
+       }
      }
 }
