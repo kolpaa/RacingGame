@@ -41,20 +41,27 @@ public class GameWindow {
                 if (downPressed) {
                     Game.speed -= 1;
                 }
-                if (leftPressed && (upPressed | downPressed)) {
+                if (leftPressed) {
                     if (Game.speed > 10){
-                        if (Game.playerX > Game.minCoordinateX)
-                            Game.playerX -= 20;
+                        Game.playerX -= 30;
                     }
                 }
                 if (rightPressed) {
                     if (Game.speed > 10){
-                        if (Game.playerX < Game.maxCoordinateX) {
-                        Game.playerX += 20;
-                        }
+                        Game.playerX += 30;
                     }
                 }
+                
+                for(int i = 0; i < 100; i++){
+                    Game.snowFlakesY[i] += 1;
+                    if (Game.snowFlakesY[i] > Game.height){
+                        Game.snowFlakesY[i] = 0;
+                    }
+                }
+
                 Game.gamePanel.repaint();
+
+                
             }
         });
         timer.start();
@@ -99,3 +106,4 @@ public class GameWindow {
     }
 
 }
+

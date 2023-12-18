@@ -8,6 +8,10 @@ public class Line {
     public Image sprite;
     public int spriteX;
 
+    public Image ded;
+    public int dedX;
+
+
     public Line() {
         curve = x = y = z = 0;
     }

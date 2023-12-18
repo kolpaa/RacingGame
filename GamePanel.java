@@ -12,10 +12,9 @@ public class GamePanel extends JPanel {
   Image background;
   Image car;
   Image shavarma;
-  Image EnemyCar;
+  Image ded;
+  Image gameOver;
   private Image snowflake;
-  private int[] snowflakeX;
-  private int[] snowflakeY;
 
   public static Image resizeImage(Image originalImage, int newWidth, int newHeight) {
     BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
@@ -29,23 +28,21 @@ public class GamePanel extends JPanel {
     background = Toolkit.getDefaultToolkit().createImage("district.jpg");
     car = Toolkit.getDefaultToolkit().createImage("car.png");
     snowflake = Toolkit.getDefaultToolkit().createImage("snowflake.png");
+    ded = Toolkit.getDefaultToolkit().createImage("ded.png");
+    gameOver = Toolkit.getDefaultToolkit().createImage("wordart.png");
   }
 
   public void paintComponent(Graphics g) {
+    if (Game.gameOver){
+      Image resizedGameOver = resizeImage(gameOver, 1024, 500);
+      g.drawImage(resizedGameOver, 0, 0,null);
+      return;
+    }
     super.paintComponent(g);
     g.drawImage(background, 0, 0, null);
 
-    snowflakeX = new int[100]; // Количество снежинок
-    snowflakeY = new int[100];
-
-    // Инициализация начальных координат снежинок
-    for (int i = 0; i < snowflakeX.length; i++) {
-      snowflakeX[i] = (int) (Math.random() * background.getWidth(null));
-      snowflakeY[i] = (int) (Math.random() * background.getHeight(null));
-    }
-
-    for (int i = 0; i < snowflakeX.length; i++) {
-      g.drawImage(snowflake, snowflakeX[i], snowflakeY[i], null);
+    for (int i = 0; i < Game.snowFlakesX.length; i++) {
+      g.drawImage(snowflake, Game.snowFlakesX[i], Game.snowFlakesY[i], null);
     }
 
     Game.startPosition = (int) (Game.position / Game.segL);
@@ -57,24 +54,39 @@ public class GamePanel extends JPanel {
     } else {
       Game.speed = 0;
     }
-    Game.x = Game.y = 0;
-
+    Game.x = Game.dx = 0;
     int camH = 1500 + (int) Game.lines.get(Game.startPosition).y;
 
     int maxY = Game.height;
 
-    for (int n = Game.startPosition; n < Game.startPosition + 300; n++) {
-      Line l = Game.lines.get(n % 1600);
-      l.project(Game.playerX - (int) (Game.x), camH, Game.position);
-      Game.x += Game.y;
-      Game.y += l.curve;
+    if (Game.playerX > Game.roadW || Game.playerX < -Game.roadW){
+      Game.speed = Math.min(40, Game.speed);
+    }
 
-      Line p = Game.lines.get((n - 1) % 1600);
+
+
+    for (int n = Game.startPosition; n < Game.startPosition + 300; n++) {
+      Line l = Game.lines.get(n % 30000);
+      l.project(Game.playerX - (int) (Game.x), camH, Game.position);
+      Game.x += Game.dx;
+      Game.dx += l.curve;
+      Line p = Game.lines.get((n - 1) % 30000);
       if (n == 1) {
         p.project(Game.playerX - (int) (Game.x), camH, 0);
-        Game.x += Game.y;
-        Game.y += p.curve;
+        Game.x += Game.dx;
+        Game.dx += p.curve;
+
       }
+
+
+
+
+      if (n == Game.startPosition){
+          Game.playerX -=  Game.dx * 30;
+      }
+      
+
+
 
       if (l.Y >= maxY && l.Y < Game.height) {
         continue;
@@ -96,18 +108,32 @@ public class GamePanel extends JPanel {
     for (int n = Game.startPosition + 300; n > Game.startPosition; n--) {
       // Line l = Game.lines.get(n%1600).drawSprite(g);
       dist++;
-      Line p = Game.lines.get(n % 1600);
+      Line p = Game.lines.get(n % 30000);
       Image test = p.sprite;
-      if (test == null) {
-        continue;
+      Image newDed = p.ded;
+
+      if (test != null) {
+        Image res = resizeImage(test, (int) (1 + dist * 0.4), (int) (1 + dist * 0.4));
+        g.drawImage(res, (int) (p.X) - (int) (p.W) - 200 - p.spriteX, (int) p.Y - res.getWidth(null), null);
       }
 
-      // Image res_s = test.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+       if (newDed != null) {
+        Image res = resizeImage(newDed, (int) (1 + dist * 0.4), (int) (1 + dist * 0.4));
+        if (Math.abs(((int) (p.X)  - p.dedX) - Game.playerX) < 320 && Math.abs((int) p.Y - res.getWidth(null) - Game.height) < 320) {
+          Game.gameOver = true;
+          break;
+        }
+        g.drawImage(res, (int) (p.X)  - p.dedX, (int) p.Y - res.getWidth(null), null);
 
-      Image ress = resizeImage(test, (int) (1 + dist * 0.4), (int) (1 + dist * 0.4));
-      g.drawImage(ress, (int) (p.X) - (int) (p.W) - 200 - p.spriteX, (int) p.Y - ress.getWidth(null), null);
+        //System.out.println(Math.abs(((int) (p.X)  - p.dedX) - Game.playerX));
+
+      }
+          
     }
 
   }
 
+
+
 }
+
